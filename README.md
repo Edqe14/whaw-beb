@@ -1,5 +1,7 @@
 # whaw-beb
 
+Whatsapp HTTP API Webhook build with Bun, Elysia, and Baileys.
+
 To install dependencies:
 
 ```bash
