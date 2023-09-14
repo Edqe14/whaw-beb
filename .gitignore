@@ -170,3 +170,7 @@ dist
 
 # Bun lock
 bun.lockb
+
+# Baileys
+
+.baileys/*

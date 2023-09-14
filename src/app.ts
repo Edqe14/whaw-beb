@@ -1,13 +1,21 @@
 import consola, { type ConsolaInstance } from 'consola';
-import { ServerFactory, type Server } from './server';
+import { ServerFactory, type Server, DriverInstances } from '@/server';
 import { Env } from '@/env';
+import { Drivers } from '@/driver';
 
 export class App {
   elysia: Server;
   logger: ConsolaInstance;
 
-  constructor(public port: Env['PORT']) {
-    this.elysia = ServerFactory.create();
+  constructor(
+    public readonly port: Env['PORT'],
+    public readonly drivers: (keyof typeof Drivers)[]
+  ) {
+    this.elysia = ServerFactory.create(
+      drivers
+        .map((name) => Drivers[name])
+        .map((Driver) => new Driver(this)) as DriverInstances
+    );
     this.logger = consola;
 
     this.listen();
